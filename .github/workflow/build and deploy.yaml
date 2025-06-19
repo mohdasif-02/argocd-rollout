@@ -39,20 +39,15 @@ jobs:
           gcloud config set project $PROJECT_ID
           gcloud auth configure-docker $REPOSITORY_REGION-docker.pkg.dev
 
-      - name: Define Image Tag (timestamp)
-        id: vars
-        run: |
-          TAG=$(date +%Y%m%d%H%M%S)
-          echo "tag=$TAG" >> $GITHUB_OUTPUT
-          echo "image_uri=$REPOSITORY_REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE_NAME:$TAG" >> $GITHUB_OUTPUT
-
       - name: Build Docker image
         run: |
-          docker build -t ${{ steps.vars.outputs.image_uri }} .
+          docker build -t
+          asia-south1-docker.pkg.dev/asif-praveen-gke/artifact-gke/$IMAGE_NAME:latest
 
       - name: Push Docker image to Artifact Registry
         run: |
-          docker push ${{ steps.vars.outputs.image_uri }}
+          docker push
+          asia-south1-docker.pkg.dev/asif-praveen-gke/artifact-gke/$IMAGE_NAME:latest
 
       - name: Update rollout.yaml with new image tag
         run: |
