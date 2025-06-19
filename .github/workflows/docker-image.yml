@@ -30,7 +30,7 @@ jobs:
 
       - name: Authenticate to GCP using Workload Identity Federation
         id: auth
-        uses: https://github.com/google-github-actions/auth
+        uses: google-github-actions/auth@v2.0.0
         with:
           workload_identity_provider: projects/915484313024/locations/global/workloadIdentityPools/my-pool/providers/github
 
