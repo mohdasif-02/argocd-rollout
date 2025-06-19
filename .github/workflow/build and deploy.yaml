@@ -6,12 +6,12 @@ on:
       - main
 
 env:
-  PROJECT_ID: as-gke
-  PROJECT_NUMBER: 4816
+  PROJECT_ID: praveen-345
+  PROJECT_NUMBER: 915484313024
   REGION: asia-south1
-  REPOSITORY: artifact-gke-wif
+  REPOSITORY: argocd-rollout
   REPOSITORY_REGION: asia-south1
-  CLUSTER: test-prvt
+  CLUSTER: test-argocd-1
   CLUSTER_ZONE: asia-south1-a
   IMAGE_NAME: nginx
 
@@ -31,8 +31,9 @@ jobs:
         id: auth
         uses: google-github-actions/auth@v0
         with:
-          workload_identity_provider: projects/48155601516/locations/global/workloadIdentityPools/artifact-gke-wif/providers/github
-          service_account: artifact-gke@asgke.iam.gserviceaccount.com
+          workload_identity_provider: projects/915484313024/locations/global/workloadIdentityPools/my-pool/providers/github
+
+          service_account: gke-workload@praveen-345.iam.gserviceaccount.com
 
       - name: Configure gcloud
         run: |
@@ -42,12 +43,12 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t
-          asia-south1-docker.pkg.dev/asif-praveen-gke/artifact-gke/$IMAGE_NAME:latest
+          asia-south1-docker.pkg.dev/praveen-345/argocd-rollout/$IMAGE_NAME:latest
 
       - name: Push Docker image to Artifact Registry
         run: |
           docker push
-          asia-south1-docker.pkg.dev/asif-praveen-gke/artifact-gke/$IMAGE_NAME:latest
+          asia-south1-docker.pkg.dev/praveen-345/argocd-rollout/$IMAGE_NAME:latest
 
       - name: Update rollout.yaml with new image tag
         run: |
