@@ -5,6 +5,10 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write       # Required to commit/push code to the repo
+  id-token: write       # Required for Workload Identity Federation (GCP auth)
+
 env:
   PROJECT_ID: praveen-345
   PROJECT_NUMBER: 915484313024
