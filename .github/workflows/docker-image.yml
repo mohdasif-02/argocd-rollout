@@ -1,0 +1,61 @@
+name: Build and Push Docker Image to GCP Artifact Registry
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  PROJECT_ID: praveen-345
+  PROJECT_NUMBER: 915484313024
+  REGION: asia-south1
+  REPOSITORY: argocd-rollout
+  REPOSITORY_REGION: asia-south1
+  CLUSTER: test-argocd-1
+  CLUSTER_ZONE: asia-south1-a
+  IMAGE_NAME: nginx
+  IMAGE_TAG: latest
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Authenticate to GCP using Workload Identity Federation
+        id: auth
+        uses: google-github-actions/auth@v0
+        with:
+          workload_identity_provider: projects/915484313024/locations/global/workloadIdentityPools/my-pool/providers/github
+
+          service_account: gke-workload@praveen-345.iam.gserviceaccount.com
+
+      - name: Configure gcloud
+        run: |
+          gcloud config set project $PROJECT_ID
+          gcloud auth configure-docker $REPOSITORY_REGION-docker.pkg.dev
+
+      - name: Build Docker image
+        run: |
+          docker build -t
+          asia-south1-docker.pkg.dev/praveen-345/argocd-rollout/$IMAGE_NAME:latest
+
+      - name: Push Docker image to Artifact Registry
+        run: |
+          docker push
+          asia-south1-docker.pkg.dev/praveen-345/argocd-rollout/$IMAGE_NAME:latest
+
+      - name: Update rollout.yaml with new image tag
+        run: |
+          sed -i "s|image:.*|image: $REPOSITORY_REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE_NAME:$IMAGE_TAG|" nginx-rollout/resource.yaml
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add nginx-rollout/resource.yaml
+          git commit -m "Update rollout to tag: $IMAGE_TAG"
+          git push
