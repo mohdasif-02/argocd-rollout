@@ -47,9 +47,9 @@ jobs:
 
       - name: Update rollout.yaml with new image tag
         run: |
-          sed -i "s|image:.*|image: $REPOSITORY_REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE_NAME:$IMAGE_TAG|" nginx-rollout/resource.yaml
+          sed -i "s|image:.*|image: $REPOSITORY_REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE_NAME:$IMAGE_TAG|" argocd-rollout/resource.yaml
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-          git add nginx-rollout/resource.yaml
+          git add argocd-rollout/resource.yaml
           git commit -m "Update rollout to tag: $IMAGE_TAG"
           git push
