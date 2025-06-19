@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: your-dockerhub-user/nginx-rollout:1.0.0
+        image: asia-south1-docker.pkg.dev/as-gke/artifact-gke/nginx:latest
         ports:
         - containerPort: 80
   strategy:
