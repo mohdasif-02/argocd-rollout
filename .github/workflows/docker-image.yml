@@ -45,12 +45,23 @@ jobs:
         run: |
           docker push asia-south1-docker.pkg.dev/praveen-345/argocd-rollout/$IMAGE_NAME:latest
 
-      - name: Update rollout.yaml with new image tag
+      # - name: Update rollout.yaml with new image tag
+      #   run: |
+      #     sed -i "s|image:.*|image: $REPOSITORY_REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE_NAME:$IMAGE_TAG|" argocd-rollout/resource.yaml
+      #     git config --global user.name "github-actions"
+      #     git config --global user.email "github-actions@github.com"
+      #     git add argocd-rollout/resource.yaml
+      #     git commit -m "Update rollout to tag: $IMAGE_TAG"
+      #     git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/mohdasif-02/argocd-rollout.git HEAD:main
+
+      - name: Commit and push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          sed -i "s|image:.*|image: $REPOSITORY_REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/$IMAGE_NAME:$IMAGE_TAG|" argocd-rollout/resource.yaml
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-          git add argocd-rollout/resource.yaml
-          git commit -m "Update rollout to tag: $IMAGE_TAG"
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/mohdasif-02/argocd-rollout.git HEAD:main
+         git config --global user.name "github-actions[bot]"
+         git config --global user.email "github-actions[bot]@users.noreply.github.com"
+         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/mohdasif-02/argocd-rollout.git
+         git add argocd-rollout/resource.yaml
+         git commit -m "Update rollout to tag: $IMAGE_TAG" || echo "No changes to commit"
+         git push origin HEAD:main
 
