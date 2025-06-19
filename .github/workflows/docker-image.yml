@@ -33,17 +33,14 @@ jobs:
         uses: google-github-actions/auth@v2.0.0
         with:
           workload_identity_provider: projects/915484313024/locations/global/workloadIdentityPools/my-pool/providers/github
-
           service_account: gke-workload@praveen-345.iam.gserviceaccount.com
-
       - name: Configure gcloud
         run: |
           gcloud config set project $PROJECT_ID
           gcloud auth configure-docker $REPOSITORY_REGION-docker.pkg.dev
-
       - name: Build Docker image
         run: |
-          docker build t
+          docker build -t
           asia-south1-docker.pkg.dev/praveen-345/argocd-rollout/$IMAGE_NAME:latest
           .
       - name: Push Docker image to Artifact Registry
