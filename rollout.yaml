@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: asia-south1-docker.pkg.dev/as-gke/artifact-gke/nginx:latest
+        image: asia-south1-docker.pkg.dev/praveen-345/argocd-rollout/nginx:latest
         ports:
         - containerPort: 80
   strategy:
