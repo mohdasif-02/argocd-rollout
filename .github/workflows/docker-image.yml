@@ -5,9 +5,9 @@ on:
     branches:
       - main
 
-permissions:
-  contents: write       # Required to commit/push code to the repo
-  id-token: write       # Required for Workload Identity Federation (GCP auth)
+# permissions:
+#   contents: write       # Required to commit/push code to the repo
+#   id-token: write       # Required for Workload Identity Federation (GCP auth)
 
 env:
   PROJECT_ID: praveen-345
@@ -69,14 +69,25 @@ jobs:
       #    git commit -m "Update rollout to tag: $IMAGE_TAG" || echo "No changes to commit"
       #    git push origin HEAD:main
 
+      # - name: Commit and push rollout.yaml with new image tag
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: |
+      #    git config --global user.name "github-actions[bot]"
+      #    git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      #    git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/mohdasif-02/argocd-rollout.git
+      #    git add argocd-rollout/resource.yaml
+      #    git commit -m "Update rollout to tag: $IMAGE_TAG" || echo "No changes to commit"
+      #    git push origin HEAD:main
       - name: Commit and push rollout.yaml with new image tag
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
-         git config --global user.name "github-actions[bot]"
-         git config --global user.email "github-actions[bot]@users.noreply.github.com"
-         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/mohdasif-02/argocd-rollout.git
-         git add argocd-rollout/resource.yaml
-         git commit -m "Update rollout to tag: $IMAGE_TAG" || echo "No changes to commit"
-         git push origin HEAD:main
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://${GH_PAT}@github.com/mohdasif-02/argocd-rollout.git
+          git add argocd-rollout/resource.yaml
+          git commit -m "Update rollout to tag: latest" || echo "No changes to commit"
+          git push origin HEAD:main
+
 
