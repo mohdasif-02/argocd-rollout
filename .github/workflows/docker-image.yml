@@ -43,7 +43,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t
+          docker build t
           asia-south1-docker.pkg.dev/praveen-345/argocd-rollout/$IMAGE_NAME:latest
           .
       - name: Push Docker image to Artifact Registry
