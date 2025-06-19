@@ -52,4 +52,5 @@ jobs:
           git config --global user.email "github-actions@github.com"
           git add argocd-rollout/resource.yaml
           git commit -m "Update rollout to tag: $IMAGE_TAG"
-          git push
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/mohdasif-02/argocd-rollout.git HEAD:main
+
