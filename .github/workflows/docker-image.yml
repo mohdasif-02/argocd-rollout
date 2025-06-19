@@ -79,16 +79,16 @@ jobs:
       #    git add argocd-rollout/resource.yaml
       #    git commit -m "Update rollout to tag: $IMAGE_TAG" || echo "No changes to commit"
       #    git push origin HEAD:main
-      - name: Commit and push rollout.yaml with new image tag
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}  # 👈 Your personal access token stored in secrets
-        run: |
-          git config --global user.name "mohdasif-02"
-          git config --global user.email "asif02ashu@gmail.com"
-          git remote set-url origin https://${GH_PAT}@github.com/mohdasif-02/argocd-rollout.git
-          git add argocd-rollout/resource.yaml
-          git commit -m "Update rollout to tag: latest" || echo "No changes to commit"
-          git push origin HEAD:main
+      # - name: Commit and push rollout.yaml with new image tag
+      #   env:
+      #     GH_PAT: ${{ secrets.GH_PAT }}  # 👈 Your personal access token stored in secrets
+      #   run: |
+      #     git config --global user.name "mohdasif-02"
+      #     git config --global user.email "asif02ashu@gmail.com"
+      #     git remote set-url origin https://${GH_PAT}@github.com/mohdasif-02/argocd-rollout.git
+      #     git add argocd-rollout/resource.yaml
+      #     git commit -m "Update rollout to tag: latest" || echo "No changes to commit"
+      #     git push origin HEAD:main
 
 
 
