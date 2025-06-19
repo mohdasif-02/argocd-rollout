@@ -33,7 +33,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: asia-south1-docker.pkg.dev/praveen-345/argocd-rollout/nginx:latest  # <-- This gets replaced by GitHub Action with version
+          image: asia-south1-docker.pkg.dev/praveen-345/argocd-rollout/nginx:v1  # <-- This gets replaced by GitHub Action with version
           ports:
             - containerPort: 80
   strategy:
