@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nginx
-  namespace: default
+  namespace: argocd-rollout
 spec:
   type: LoadBalancer
   selector:
@@ -16,7 +16,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Rollout
 metadata:
   name: nginx-rollout
-  namespace: default
+  namespace: argo-rollout
 spec:
   replicas: 3
   selector:
