@@ -25,7 +25,7 @@ metadata:
     app: nginx
     updated-by: "asif-0707"  # ✅ Added label to trigger sync
 spec:
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels:
       app: nginx
