@@ -21,8 +21,11 @@ kind: Deployment
 metadata:
   name: nginx
   namespace: argocd-rollout
+  labels:
+    app: nginx
+    updated-by: "asif-0707"  # ✅ Added label to trigger sync
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: nginx
@@ -36,4 +39,8 @@ spec:
           image: nginx:1.25  # Use any public image you prefer
           ports:
             - containerPort: 80
+          env:               # ✅ Added dummy env var to trigger sync
+            - name: DUMMY_ENV
+              value: "0707"
+
 
