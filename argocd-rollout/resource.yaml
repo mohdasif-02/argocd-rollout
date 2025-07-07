@@ -41,6 +41,6 @@ spec:
             - containerPort: 80
           env:               # ✅ Added dummy env var to trigger sync
             - name: DUMMY_ENV
-              value: "0707"
+              value: "070908"
 
 
