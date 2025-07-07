@@ -36,11 +36,12 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: nginx:1.25  # Use any public image you prefer
+          image: nginx:1.25
           ports:
             - containerPort: 80
-          env:               # ✅ Added dummy env var to trigger sync
+          env:                # ✅ Dummy env var to trigger sync
             - name: DUMMY_ENV
-              value: "070908"
+              value: "07"
+
 
 
