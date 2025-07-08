@@ -38,7 +38,7 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: nginx:1.25
+          image: nginx:1.25-1
           ports:
             - containerPort: 80
           env:                # ✅ Dummy env var to trigger sync
