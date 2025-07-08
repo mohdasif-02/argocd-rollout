@@ -22,7 +22,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx
-  namespace: argocd-rollo
+  namespace: argocd-rollout
   labels:
     app: nginx
     updated-by: "asif-0707"  # ✅ Added label to trigger sync
