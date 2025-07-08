@@ -9,12 +9,14 @@ metadata:
   name: nginx
   namespace: argocd-rollout
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: nginx
   ports:
     - port: 80
       targetPort: 80
+      nodePort: 30080  # optional, must be between 30000-32767 if you set it
+
 ---
 apiVersion: apps/v1
 kind: Deployment
